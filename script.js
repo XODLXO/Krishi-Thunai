@@ -1,20 +1,18 @@
-// script.js (Simplified Final Display with new URL and troubleshooting log)
+// script.js (FINAL FIX: Ensures IDs and URL are correct)
 
-// 🚨 UPDATED RENDER API URL 🚨
+// The confirmed, live Render API URL
 const API_BASE_URL = 'https://krishi-thunai-1.onrender.com'; 
 
 async function sendImageForPrediction(file) {
     const formData = new FormData();
+    // The key 'file' must match the 'file: UploadFile = File(...)' parameter name in your FastAPI backend
     formData.append("file", file); 
     
     const apiURL = API_BASE_URL + '/predict'; 
     const resultsDiv = document.getElementById('results');
     
-    // --- Troubleshooting Log ---
-    console.log("Starting prediction request for file:", file.name);
-    // --- End Troubleshooting Log ---
-    
-    resultsDiv.innerHTML = '<p class="loading">⏳ Sending image to ML server... (This may take up to 50 seconds on the first try)</p>';
+    // 1. Show Loading Message
+    resultsDiv.innerHTML = '<p class="loading">⏳ Sending image to ML server... (First request may take 30-60 seconds due to server wake-up)</p>';
 
     try {
         const response = await fetch(apiURL, {
@@ -24,12 +22,12 @@ async function sendImageForPrediction(file) {
 
         const result = await response.json();
 
+        // Check for non-network errors (e.g., 404, 500)
         if (!response.ok) {
-            // Handle HTTP errors (e.g., 404, 500)
             throw new Error(`[${response.status}] API Error: ${result.detail || 'Unknown server error'}`);
         }
         
-        // --- Display Only Core Data ---
+        // --- Display Prediction Results ---
         resultsDiv.innerHTML = `
             <div class="result-section">
                 <h3>✅ Prediction Results</h3>
@@ -38,28 +36,25 @@ async function sendImageForPrediction(file) {
                 <p><strong>Estimated Severity Score (1-13):</strong> <span class="severity-score">${result.severity_score}</span></p>
                 
                 <hr>
-                <p class="note">The API is working! Next features will be built here in the frontend.</p>
+                <p class="note">Backend connection successful! Now we can start building the detailed recommendation logic here in the Frontend using these values.</p>
             </div>
         `;
         resultsDiv.scrollIntoView({ behavior: 'smooth' });
 
     } catch (error) {
         console.error("Fetch Error:", error);
-        resultsDiv.innerHTML = `<p class="error">❌ Failed to get prediction. Error: ${error.message}. Check the browser's Network tab.</p>`;
+        resultsDiv.innerHTML = `<p class="error">❌ Failed to get prediction. Error: ${error.message}. Please check the console and ensure the Render API is awake.</p>`;
     }
 }
 
 // Event listener to trigger the process when a file is selected
+// *** THIS LINE WAS CAUSING THE ERROR ***
 document.getElementById('imageUpload').addEventListener('change', function(event) {
-    // --- Troubleshooting: Log when the event fires ---
-    console.log("Image upload event fired.");
-    // --- End Troubleshooting ---
-    
     const file = event.target.files[0];
     const preview = document.getElementById('imagePreview');
     const previewContainer = document.getElementById('previewContainer');
+    const resultsDiv = document.getElementById('results');
 
-    // This checks if a file was actually selected
     if (file) {
         // 1. Show the image preview
         const reader = new FileReader();
@@ -72,8 +67,8 @@ document.getElementById('imageUpload').addEventListener('change', function(event
         // 2. Start the prediction process
         sendImageForPrediction(file);
     } else {
-        // Clear if no file is selected
+        // Clear if no file is selected (shouldn't happen on 'change' event)
         previewContainer.style.display = 'none';
-        document.getElementById('results').innerHTML = '';
+        resultsDiv.innerHTML = '<p class="initial-message">Please upload an image to begin the diagnosis.</p>';
     }
 });
