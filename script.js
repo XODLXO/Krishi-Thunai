@@ -1,6 +1,6 @@
 // script.js (Simplified Final Display)
 
-const API_BASE_URL = 'https://krishi-thunai.onrender.com'; 
+const API_BASE_URL = 'https://krishi-thunai-1.onrender.com'; 
 
 async function sendImageForPrediction(file) {
     const formData = new FormData();
