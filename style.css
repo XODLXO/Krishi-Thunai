@@ -1,82 +1,132 @@
+/* Basic Reset and Global Styles */
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Arial', sans-serif;
     background-color: #f4f7f6;
     color: #333;
     margin: 0;
     padding: 0;
-    line-height: 1.6;
 }
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
 header {
-    background-color: #2e8b57; /* Sea Green - a farm color */
-    color: white;
-    padding: 20px 40px;
     text-align: center;
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: #4CAF50; /* Green theme */
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+/* Upload Styling */
+.upload-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Hides the default file input button */
+.file-input {
+    display: none;
+}
+
+/* Styles the label to look like a button */
+.upload-label {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    font-weight: bold;
+    font-size: 1.1em;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-h1 {
-    margin: 0;
+
+.upload-label:hover {
+    background-color: #45a049;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
-main {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 20px;
-}
-section {
-    background-color: white;
-    padding: 30px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-h2 {
-    color: #2e8b57;
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 10px;
-    margin-top: 0;
-}
-button {
-    background-color: #ff9933; /* Saffron - a strong action color */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-button:hover {
-    background-color: #e68a2e;
-}
-.image-preview {
-    margin-top: 15px;
-    border: 2px dashed #ccc;
-    border-radius: 5px;
-    padding: 10px;
+
+/* Preview Section Styling */
+.preview-container {
+    display: none; /* Hidden by default */
     text-align: center;
-    max-width: 300px;
-}
-.image-preview img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: auto;
-    border-radius: 3px;
-}
-.result-area {
-    margin-top: 20px;
+    margin-bottom: 30px;
     padding: 20px;
-    border: 1px solid #d0d0d0;
-    border-radius: 5px;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
 }
-/* Simple Mobile Responsiveness */
-@media (max-width: 600px) {
-    header {
-        padding: 15px 20px;
-    }
-    main {
-        padding: 10px;
-    }
-    section {
-        padding: 20px;
-    }
+
+.image-preview {
+    max-width: 100%;
+    max-height: 250px;
+    border-radius: 8px;
+    margin-top: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Results Section Styling */
+.results-section {
+    padding: 20px;
+    border-top: 2px solid #eee;
+}
+
+.initial-message {
+    text-align: center;
+    color: #777;
+    padding: 20px;
+}
+
+.loading {
+    text-align: center;
+    font-size: 1.2em;
+    color: #ff9800; /* Orange for loading */
+    padding: 20px;
+}
+
+.error {
+    text-align: center;
+    font-size: 1.2em;
+    color: #f44336; /* Red for error */
+    padding: 20px;
+    border: 1px solid #f44336;
+    background-color: #ffe0e0;
+    border-radius: 4px;
+}
+
+/* Prediction Output Styles */
+.result-section h3 {
+    color: #1976D2; /* Blue for headers */
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.result-section p {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.primary-class {
+    font-weight: bold;
+    color: #E91E63; /* Pink accent */
+}
+
+.primary-confidence, .severity-score {
+    font-weight: bold;
+    color: #009688; /* Teal accent */
+    background-color: #e0f2f1;
+    padding: 2px 6px;
+    border-radius: 4px;
 }
